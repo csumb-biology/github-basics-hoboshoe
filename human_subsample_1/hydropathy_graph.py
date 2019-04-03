@@ -11,12 +11,12 @@ Data=[]
 Hydropathy={}
 LineNumber = 0
 winlist=[]
-hydlist[]
+hydlist=[]
 for i in range(len(sys.argv)):
     if (i==1):
-        InSeqFileName=sys.argv[i]
-    else:
-        window=sys.argv[i]
+        InSeqFileName=str(sys.argv[i])
+    elif(i==2):
+        window=int(sys.argv[i])
 for Line in InFile:
     if(LineNumber>0):
         Line = Line.strip("\n")
@@ -33,20 +33,25 @@ for Line in InSeqFile:
     LineNumber = LineNumber + 1
 InSeqFile.close()
 
-OutFileName = InSeqFileName.strip('.fasta') + ".output.png"
-OutFile = open(OutFileName,"w")
+oFileName = InSeqFileName.strip('.fasta')
+titlefilename= oFileName + "\'s Hydropathy"
+OutFileName = oFileName + ".png"
+#OutFile = open(OutFileName,"w")
 lets=0
 for win in range(len(ProtSeq)):
     num=0
-    lets=sequence[win:win+window]
+    lets=ProtSeq[win:win+window]
     if(len(lets)==window):
-        for AA in lets:
-            num = float(hydrophobicity[AA][1])+num
+        for AA in str(lets):
+            num += Hydropathy[AA]
         hydlist.append(num)
     winlist.append(win)
+print hydlist
+print winlist
 plt.plot(winlist,hydlist,label='score')
 plt.xlabel('Window')
 plt.ylabel('Hydropathy Score')
-plt.title(%s"'s Hydrophobicity") % (OutFileName)
-OutFile.write(OutString + "\n")
-OutFile.close()
+plt.title(titlefilename)
+plt.savefig(OutFileName)
+#OutFile.write(OutString + "\n")
+#OutFile.close()
