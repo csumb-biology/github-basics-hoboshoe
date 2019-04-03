@@ -3,6 +3,7 @@
 #Working template of hydropathy score calculation script
 #You need to put in comments for every line
 import sys
+from matplotlib import pyplot as plt
 
 InFileName = "amino_acid_hydropathy_values.txt"
 InFile = open(InFileName, 'r')
@@ -43,5 +44,9 @@ for win in range(len(ProtSeq)):
             num = float(hydrophobicity[AA][1])+num
         hydlist.append(num)
     winlist.append(win)
+plt.plot(winlist,hydlist,label='score')
+plt.xlabel('Window')
+plt.ylabel('Hydropathy Score')
+plt.title(%s"'s Hydrophobicity") % (OutFileName)
 OutFile.write(OutString + "\n")
 OutFile.close()
