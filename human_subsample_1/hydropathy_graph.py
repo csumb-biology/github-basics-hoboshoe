@@ -9,7 +9,8 @@ InFile = open(InFileName, 'r')
 Data=[]
 Hydropathy={}
 LineNumber = 0
-
+winlist=[]
+hydlist[]
 for i in range(len(sys.argv)):
     if (i==1):
         InSeqFileName=sys.argv[i]
@@ -31,7 +32,7 @@ for Line in InSeqFile:
     LineNumber = LineNumber + 1
 InSeqFile.close()
 
-OutFileName = InSeqFileName.strip('.fasta') + ".output.csv"
+OutFileName = InSeqFileName.strip('.fasta') + ".output.png"
 OutFile = open(OutFileName,"w")
 lets=0
 for win in range(len(ProtSeq)):
@@ -40,6 +41,7 @@ for win in range(len(ProtSeq)):
     if(len(lets)==window):
         for AA in lets:
             num = float(hydrophobicity[AA][1])+num
-        OutString = "%d,%.2f" % (win, num)
-        OutFile.write(OutString + "\n")
-        OutFile.close()
+        hydlist.append(num)
+    winlist.append(win)
+OutFile.write(OutString + "\n")
+OutFile.close()
